@@ -2,6 +2,8 @@
 
 ## ToDo
 
+* shuffle input data um osciliscope effekt zu unterdrücken
+* aktuellen datainput button hervorheben
 * Layout
 * refactor / code aufräumen
 * reinit Button -> delete click events
