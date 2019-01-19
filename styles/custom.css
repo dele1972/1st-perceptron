@@ -1,0 +1,73 @@
+* {
+  /* Rand um die eigentliche Seite verhindern */
+  margin: 0;
+  /* alle Rahmen besitzen nun die gleiche Außengröße, Padding und Rahmenbreite haben darauf keinen Einfluss mehr */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans Condensed', sans-serif, Arial;
+  font-kerning: auto;
+  background-color: #393839;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+h1 {
+  font-size: 1.8em;
+  /*margin: 0.67em 0;*/
+  margin-top: 0;
+  padding: 3% 0;
+  color: #25598F;
+  text-align: center;
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+
+h2, h3 {
+  font-family: 'PT Sans Narrow', sans-serif;
+  padding: 1% 0;
+  color: #636E04;
+}
+
+p {
+  padding: 1% 0;
+}
+
+a, a:visited {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+canvas {
+  /* position: absolute; */
+  /* background-color: transparent; */
+  /*background-color: whitesmoke;*/
+  /* width:100%; */
+  /* height: 100%; */
+}
+
+
+#main {
+  /* position: relative; */
+  margin: auto;
+  padding: 0 2%;
+  width: 85%;
+  /* height: 100%; */
+  background-color: #2C2A2D;
+}
+#head {
+  background-color: #052342;
+  border-top: 5px solid #FF9900;
+}
+#buttons {
+  /* position: fixed; */
+  /* z-index: 10; */
+  /*margin: -20px;*/
+  /*text-align: center;*/
+  /*height: 30px;*/
+}
+#content_text {
+  /* display: block; */
+}
