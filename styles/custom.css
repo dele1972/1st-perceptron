@@ -39,6 +39,9 @@ p {
 a, a:visited {
   color: rgba(255, 255, 255, 0.5);
 }
+.forkme a, a:visited {
+  text-decoration: none;
+}
 
 canvas {
   /* position: absolute; */
@@ -56,6 +59,10 @@ canvas {
   width: 85%;
   /* height: 100%; */
   background-color: #2C2A2D;
+}
+
+#main table {
+  background:#25598F;
 }
 #head {
   background-color: #052342;

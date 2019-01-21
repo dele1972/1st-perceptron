@@ -79,8 +79,9 @@ function drawInfoTable(){
     infoTableHandler.addContent(p.epochCnt, 3, drawExpGuessEq);
     infoTableHandler.addContent(p.epochCnt, 4, drawError);
     infoTableHandler.addContent(p.epochCnt, 5, p.alpha);
-    infoTableHandler.addContent(p.epochCnt, 6, p.weights[0]);
-    infoTableHandler.addContent(p.epochCnt, 7, p.weights[1]);
+    infoTableHandler.addContent(p.epochCnt, 6, p.rndOrder);
+    infoTableHandler.addContent(p.epochCnt, 7, p.weights[0]);
+    infoTableHandler.addContent(p.epochCnt, 8, p.weights[1]);
   }
 }
 
@@ -120,7 +121,7 @@ function drawPoints(){
     const epoch = pEpoch;
     const elNewRow = elTblInfo.insertRow(pEpoch);
 
-    for (let i=0; i < 8; i++){
+    for (let i=0; i < 9; i++){
       const elNewTD = elNewRow.insertCell(i);
       elNewTD.innerHTML = 'new c' + i;
       elNewTD.id = 'e' + epoch + '-' + 'col' + i;
@@ -152,6 +153,7 @@ let points = new Array(100);
 let p = new SimplePerceptron();
 
 window.onload = function () {
+  document.getElementById("rndOrder").checked = p.rndOrder;
   initAlpha();
   initInput();
   
@@ -181,12 +183,42 @@ function doTraining(){
     trainingCnt--;
     p.incEpochCount();
     p.initErrorCount();
+    
+    // shuffle array randomly to avoid oscilloscpe effect
+    if (p.rndOrder){
+      // console.log("rnd is on - shuffle points from:", JSON.stringify(points, null, 4));
+      points = shuffle(points);
+      // console.log("... to:", points);
+    }
+    
+    // loop all POINTS for training
     for (let i=0; i<points.length; i++) {
       let inputs = [points[i].x, points[i].y];
       p.train(inputs, points[i].expected);
     }
     newInfoTableData = true;
   }
+}
+
+// Hilfsfunktion für POINTS ARRAY
+function shuffle(array) {
+  // thx to: https://stackoverflow.com/a/2450976/6628517
+  let currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
 
 function doNextTrainStep(){
@@ -210,6 +242,12 @@ function doNewInput(){
 
 function inputEpochChanged() {
   trainingCntUser = document.getElementById('epoch').value;
+}
+
+function inputRndOrderChanged() {
+  // console.log("rndOrder was ", p.rndOrder);
+  p.changeRndOrder();
+  // console.log("rndOrder is now ", p.rndOrder);
 }
 
 
@@ -252,7 +290,8 @@ var datarowStore = datarowStore || (function () {
     buttonnode.setAttribute('id','btn-datarow-'+datarowCnt);
     buttonnode.setAttribute('name','btnDatarow');
     buttonnode.setAttribute('value', datarowCnt);
-    buttonnode.setAttribute('class','btn');
+    buttonnode.setAttribute('class','btn btn-secondary s-circle');
+    buttonnode.setAttribute('style','width: 50px; height: 50px;');
     elDivAllInputs.appendChild(buttonnode);
     datarowCnt++;
   }
@@ -301,6 +340,7 @@ addEventListener("DOMContentLoaded", function(){
   let btnAllInputs = document.getElementById("allInputs");
   let inAlpha = document.getElementById("alpha");
   let btnReInitTrain = document.getElementById("reInitTrain");
+  let inRndOrder = document.getElementById("rndOrder");
   // in case of QUnit Test, Element 'btn_toggleButton' is not available - therefore is no EventListener necessary (no Button, no click)
   
   /*
@@ -323,4 +363,5 @@ addEventListener("DOMContentLoaded", function(){
   
   inEpoch.addEventListener("change", inputEpochChanged);
   inAlpha.addEventListener("change", inputAlphaChanged);
+  inRndOrder.addEventListener("change", inputRndOrderChanged);
 });

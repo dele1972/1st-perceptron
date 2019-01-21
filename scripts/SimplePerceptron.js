@@ -10,6 +10,7 @@ class SimplePerceptron {
     this.epochCnt = 0; // 
     this.errorCnt = 0; // initErrorCount()
     this.passCnt = 0;
+    this.rndOrder = false;
     this.initWeights();
   }
   
@@ -24,6 +25,10 @@ class SimplePerceptron {
     if (value < 1.0 && value > 0.0){
       this.alpha = value;
     }
+  }
+
+  changeRndOrder() {
+    this.rndOrder = !this.rndOrder;
   }
   
   initErrorCount() {
@@ -65,12 +70,12 @@ class SimplePerceptron {
     const trainGuess = this.guess(inputs);
     const error = expected - trainGuess;
 
-    // @ToDo: shuffle array randomly to avoid oscilloscpe effect
-    // https://stackoverflow.com/a/2450976/6628517
-    
+    // loop all input neurons (x and y) of one case
     for (let i=0; i < this.weights.length; i++) {
       this.weights[i] += error * inputs[i] * this.alpha;
     }
+    
+    // handle counter
     if (error != 0){
       this.incErrorCount();
     } else {

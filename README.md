@@ -2,9 +2,7 @@
 
 ## ToDo
 
-* shuffle input data um osciliscope effekt zu unterdrücken
 * aktuellen datainput button hervorheben
-* Layout
 * refactor / code aufräumen
 * reinit Button -> delete click events
 * readme schreiben
@@ -29,4 +27,4 @@
 
 ## Links
 
-* [Repo on GitHub](https://github.com/dele1972/1st-perceptron)
+* live on: http://1st-perceptron.test.lederich.de/
